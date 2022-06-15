@@ -33,12 +33,15 @@ export default function NotesScreen({ navigation, route }) {
 
   // Monitor route.params for changes and add items to the database
   useEffect(() => {
+    console.log(route);
+    // if there is params
     if (route.params?.text) {
       const newNote = {
         title: route.params.text,
         done: false,
         id: notes.length.toString(),
       };
+      firebase.firestore().collection("todos").add(newNote);
       setNotes([...notes, newNote]);
     }
   }, [route.params?.text]);
