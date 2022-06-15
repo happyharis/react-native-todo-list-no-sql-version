@@ -42,7 +42,6 @@ export default function NotesScreen({ navigation, route }) {
         id: notes.length.toString(),
       };
       firebase.firestore().collection("todos").add(newNote);
-      setNotes([...notes, newNote]);
     }
   }, [route.params?.text]);
 
