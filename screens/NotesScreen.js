@@ -46,6 +46,18 @@ export default function NotesScreen({ navigation, route }) {
     }
   }, [route.params?.text]);
 
+  useEffect(() => {
+    const unsubscribe = firebase
+      .firestore()
+      .collection("todos")
+      .onSnapshot((collection) => {
+        const updatedNotes = collection.docs.map((doc) => doc.data());
+        setNotes(updatedNotes);
+      });
+
+    return () => unsubscribe();
+  }, []);
+
   function addNote() {
     navigation.navigate("Add Screen");
   }
